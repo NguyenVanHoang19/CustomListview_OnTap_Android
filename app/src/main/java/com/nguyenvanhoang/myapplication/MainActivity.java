@@ -1,11 +1,15 @@
 package com.nguyenvanhoang.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -35,6 +39,22 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Contry: " + contryList.get(i),Toast.LENGTH_LONG).show();
             }
         });
+        TextView tv = (TextView) findViewById(R.id.textView);
+        registerForContextMenu(tv);
+    }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.setHeaderTitle("Chon tên");
+        menu.add(0,v.getId(),0,"Hoa lan");
+        menu.add(0,v.getId(),0,"Hoa Hong");
+        menu.add(0,v.getId(),0,"Hoa Mai");
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        Toast.makeText(MainActivity.this,"Da chon: " + item.getTitle(),Toast.LENGTH_LONG).show();
+        return true;
     }
 }
